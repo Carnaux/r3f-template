@@ -1,8 +1,9 @@
 import { useSpring, animated } from "@react-spring/three"
 import { useFrame } from "@react-three/fiber"
 import { useRef, useState } from "react"
+import { Mesh } from "three"
 
-export default function Box(props) {
+export default function Box(props: any) {
     // This reference will give us direct access to the mesh
     const mesh = useRef()
   
@@ -17,7 +18,7 @@ export default function Box(props) {
     // Rotate mesh every frame, this is outside of React without overhead
     useFrame(() => {
       if(mesh.current != null){
-        mesh.current.rotation.x = mesh.current.rotation.y += 0.01
+        (mesh.current as Mesh).rotation.x = (mesh.current as Mesh).rotation.y += 0.01
       }
     })
 
@@ -31,7 +32,7 @@ export default function Box(props) {
         onClick={(event) => setActive(!active)}
         onPointerOver={(event) => setHover(true)}
         onPointerOut={(event) => setHover(false)}>
-        <boxBufferGeometry args={[1, 1, 1]} />
+        <boxGeometry args={[1, 1, 1]} />
         <animated.meshStandardMaterial color={color} />
       </animated.mesh>
     )
